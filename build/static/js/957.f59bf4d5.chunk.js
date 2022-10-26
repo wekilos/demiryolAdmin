@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfront=self.webpackChunkfront||[]).push([[957],{6957:function(e,n,l){l.r(n);l(2791);var r=l(184);n.default=function(){return(0,r.jsxs)("center",{children:[(0,r.jsx)("h2",{className:"text-3xl font-bold underline",children:"Welcome to the Admin Dashboard"}),(0,r.jsx)("h1",{className:"car font-bold underline",children:"wekilos"})]})}}}]);
+//# sourceMappingURL=957.f59bf4d5.chunk.js.map
