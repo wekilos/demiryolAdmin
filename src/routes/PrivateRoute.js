@@ -1,47 +1,64 @@
-import React,{ Suspense } from "react";
-import { Route } from "react-router-dom";
-import { Test } from "../pages";
-import { isLoginAdmin } from "../utils";
-import { Layout } from "antd"; 
-import { Loading } from "../components/loading";
-import "antd/dist/antd.css";  
+import './PrivateRoute.css';
+import React, { useState,Suspense } from "react";
+import { Route, useHistory } from "react-router-dom";
+import { DesktopOutlined, AlertOutlined, ContactsOutlined, TeamOutlined } from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
+import  logo  from "../img/logo.png";
+import { isLogin } from '../utils';
+import Sidebar from "../components/sidebar";
+import Headers from '../components/header';
+import Loading from "../components/loading"
+const { Header, Content, Sider } = Layout;
 
-const Header = React.lazy(()=>import("../components/header"));
-const Footer = React.lazy(()=>import("../components/footer")); 
-const { Content } = Layout;
+function getItem(label, key, icon, children) {
+  return {
+    label,
+    key,
+    icon,
+    children,
+  };
+}
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-   
 
 
+const PrivateRoute = ({ component: Component, ...rest},login) => {
+  const history = useHistory();
+  const [collapsed, setCollapsed] = useState(false);
   return (
-    <Route
+    <Route 
       {...rest}
       render={(props) =>
-        isLoginAdmin() || true ? (
-          <Layout>
-            <Suspense fallback={<Loading />}>
-                <Header />
-           </Suspense>
-            <Layout className="site-layout">
-              <Content
-                style={{
-                  minHeight: "100vh"                  
-                }}
-                className="site-layout-background main_content"
-              >
-                <Component {...props} />
-              </Content>
-            
-            </Layout>
-            <Suspense fallback={<Loading />}>
-              <Footer />
-            </Suspense>
-          </Layout>
-        ) : (
-           <Route component={Test} />
- 
-        )
+     <Layout className='layout flex'
+      style={{
+        height: '100vh',
+      }}
+    >
+     
+      <Headers/>
+      <Layout className="flex w-full mt-[65px]">
+        
+        <Suspense fallback={<Loading />}>
+              <Sidebar />
+        </Suspense>
+        <Content
+          style={{
+            margin: '10px 10px 15px',
+            backgroundColor: "white",
+          }}
+          className="w-full"
+        >
+          
+          <Component {...props} />
+        </Content>
+      
+      </Layout>
+    </Layout>
+    // :(
+    //        history.push({
+    //           pathname:"/"
+    //         })
+    //         )
+          
       }
     />
   );

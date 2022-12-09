@@ -1,31 +1,15 @@
-
-
 export const logout = () => {
-  
-  localStorage.removeItem("userData");
+  localStorage.removeItem("TDYAdmin");
 };
-
+  
 export const isLogin = () => {
-  if (localStorage.getItem("userData")) {
-    var data = JSON.parse(localStorage.getItem("userData"));
+  if (localStorage.getItem("TDYAdmin")) {
+    var data = JSON.parse(localStorage.getItem("TDYAdmin"));
     if (data.token) {
       return true;
     } else {
-      // localStorage.removeItem("sebetProfile");
+      localStorage.removeItem("TDYAdmin");
     }
   }
-  return false;
-};
-
-export const isLoginAdmin = () => {
-  if (localStorage.getItem("userData")) {
-    var data = JSON.parse(localStorage.getItem("userData"));
-    if (data.permission && data.token) {
-      return true;
-    } else {
-      // localStorage.removeItem("sebetProfile");
-    }
-  } else {
-    return false;
-  }
+  return true;
 };

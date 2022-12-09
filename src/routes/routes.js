@@ -1,100 +1,102 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter , Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {LoadingOutlined} from '@ant-design/icons';
 
-
+import {ActiveUsers, Archive, CanceledRequests, Contact, News, NonActiveUsers, Orders, Requests, NotFound, Login, DisActiveNews, ContactResponse} from '../pages/index'
 import history from "./history";
-import {   About, Contacts, Home, News, Note, OneNews, Personal, Profile, Services } from "../pages/index";
 import ScrollIntoView from "./ScrollIntoView";
-import { Loading } from "../components/loading"; 
-// import PublicRoute from "./PublicRoute";
+import Loading from "../components/loading";
  
-
 const PrivateRoute = lazy(() => import("./PrivateRoute"));
-const PublicRoute = lazy(() => import("./PublicRoute"));
+
 const App = () => {
- 
   return (
-    // forceRefresh={true}
-    // history={history}
-    <BrowserRouter  >
-      <ScrollIntoView >
-        <Suspense  fallback={<Loading />}>   
+    <BrowserRouter history={history}>
+      <ScrollIntoView>
+        <Suspense fallback={Loading}>
           <Switch>
-            
-             {/* <PrivateRoute
+
+            <PrivateRoute
               restricted={false}
-              component={FirstPage}
-              path="/"
+              component={ActiveUsers}
+              path="/ActiveUsers"
               exact
             />
-             <PrivateRoute
-              restricted={true}
-              component={FirstPage}
-              path="/"
-              exact
-            /> */}
-            {/* <Route path="/about" exact component={News} />  */}
             <PrivateRoute
-              restricted={true}
-              component={Home}
-              path="/"
+              restricted={false}
+              component={NonActiveUsers}
+              path="/DisActiveUsers"
               exact
             />
-              <PrivateRoute
-              restricted={true}
-              component={About}
-              path="/about"
+
+            <PrivateRoute
+              restricted={false}
+              component={Archive}
+              path="/archive"
               exact
             />
-             <PrivateRoute
-              restricted={true}
-              component={Services}
-              path="/services"
+
+            <PrivateRoute
+              restricted={false}
+              component={CanceledRequests}
+              path="/canceledRequests"
               exact
             />
-             <PrivateRoute
-              restricted={true}
+
+            <PrivateRoute
+              restricted={false}
+              component={Contact}
+              path="/posts"
+              exact
+            />
+            <PrivateRoute
+              restricted={false}
+              component={ContactResponse}
+              path="/sendPost"
+              exact
+            />
+            <PrivateRoute
+              restricted={false}
+              component={Contact}
+              path="/notifications"
+              exact
+            />
+            <PrivateRoute
+              restricted={false}
               component={News}
-              path="/news"
+              path="/ActiveNews"
               exact
             />
-             <PrivateRoute
-              restricted={true}
-              component={OneNews}
-              path="/news/:id"
-              exact
-            />
-             <PrivateRoute
-              restricted={true}
-              component={Contacts}
-              path="/contacts"
-              exact
-            />
-          
-          <PublicRoute
-              restricted={true}
-              component={Personal}
-              path="/personal"
-              exact
-            />
-          <PublicRoute
-            restricted={true}
-            component={Note}
-            path="/note"
-            exact
-          />
-          <PublicRoute
-            restricted={true}
-            component={Profile}
-            path="/profile"
-            exact
-          />
-           
             <PrivateRoute
-              component={Home}
-              path="*"
+              restricted={false}
+              component={DisActiveNews}
+              path="/DisActiveNews"
+              exact
             />
-            {/* <Route path="*" component={Home} /> */}
+
+            <PrivateRoute
+              restricted={false}
+              component={NonActiveUsers}
+              path="/nonActiveUsers"
+              exact
+            />
+
+            <PrivateRoute
+              restricted={false}
+              component={Orders}
+              path="/orders"
+              exact
+            />
+            
+            <PrivateRoute
+              restricted={false}
+              component={Requests}
+              path="/requests"
+              exact
+            />
+
+            <Route path="/" component={Login}/>
+            <Route path="*" component={NotFound} />
           </Switch>
         </Suspense>
       </ScrollIntoView>

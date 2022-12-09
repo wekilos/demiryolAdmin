@@ -22,7 +22,7 @@ module.exports = {
       // 'blue': '#2058D5',
       // 'blue':"#0019a8",
       // 'blue':"#090c1d",
-      'blue':'rgb(25,52,95)',//new cblue color
+      'blue':'#19345F',//new cblue color
       "blueHover":"rgba(243, 243, 242, 0.2)",
       'aboutBack':'rgba(255, 255, 255, 0.5)',
     },

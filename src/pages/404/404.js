@@ -1,18 +1,18 @@
-import React ,{useContext} from "react";
-import { Result, Button } from "antd";
-import { SebedimContext } from "../../context/Sebedim";
+import React from 'react';
+import {useHistory} from 'react-router-dom';
+import { Button, Result } from 'antd';
+import "./404.css";
 
 const NotFound = () => {
-  const {dil}=useContext(SebedimContext);
-  return (
-    <Result
-    style={{marginTop:"100px"}}
-      status="404"
-      title="404"
-      subTitle={dil==="TM"?"Sahypa tapylmady":"Page not found!"}
-      extra={<Button type="primary" >{dil==="TM"?"Bas shypa":"Main page"}</Button>}
-    />
-  );
+    const history = useHistory();
+    return(
+        <Result
+            status="404"
+            title="404"
+            subTitle="Sorry, the page you visited does not exist."
+            extra={<Button type="primary" onClick={() => history.goBack()} >Back</Button>}
+        />
+    )
 };
 
 export default NotFound;

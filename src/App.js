@@ -1,6 +1,6 @@
 
 import './App.css';
-import SebedimContextProvider from './context/Sebedim';
+import SebedimContextProvider from './context/sebedim';
 
 import Routes from "./routes/routes";
 function App() {

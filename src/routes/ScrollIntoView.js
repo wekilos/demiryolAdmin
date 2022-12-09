@@ -5,12 +5,7 @@ class ScrollIntoView extends PureComponent {
   componentDidMount = () => window.scrollTo(0, 0);
 
   componentDidUpdate = (prevProps) => {
-    console.log(this.props.location,prevProps.location)
-    if (this.props.location.pathname === prevProps.location.pathname ) {
-      // window.scrollTo(450, 450);
-    }else{
-      window.scrollTo(0, 0);
-    }
+    if (this.props.location !== prevProps.location) window.scrollTo(0, 0);
   };
 
   render = () => this.props.children;

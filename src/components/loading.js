@@ -1,16 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from "react"; 
+import React, { useEffect } from "react"; 
 import NProgress from "nprogress";
-import Lottie from "react-lottie"; 
-// import animationData from "../css/map_Reveal.json";
-
-
+import {LoadingOutlined} from "@ant-design/icons"
 import "./loading.css";
-import { SebedimContext } from "../context/Sebedim";
-import { useSizeComponents } from "./sizeComponent";
-export const Loading = () => {
-  const {dil} = useContext(SebedimContext);
-  const [width,height] = useSizeComponents();
-  const [ initialWidth, setInitialWidth] = useState("30%")
+ const Loading = () => {
   useEffect(() => {
     NProgress.start();
     NProgress.configure({ showSpinner: false });
@@ -19,38 +11,8 @@ export const Loading = () => {
       NProgress.done();
     };
   }, []);
-  useEffect(()=>{
-        if(width>879){
-          setInitialWidth("30%")
-        }else if(width>450){
-          setInitialWidth("450px")
-        }else if(width>400){
-          setInitialWidth("350px")
-        }else{
-          setInitialWidth("320px")
-        }
-  },[width])
 
-  const defaultOptions = {
-    loop:true,
-    autoplay:true,
-    // animationData:animationData,
-
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  }
-  
-  
-
-  return <div style={{height:"100vh",margin:"0 auto",backgroundColor:"#19345F"}}> 
-  {/* <Lottie
-              options={defaultOptions}
-              // height={500}
-              width={initialWidth}
-              >
-
-  </Lottie> */}
-  </div>
-  // <img src={Loader} alt={dil==="TM"?"Ýüklenýär":"Загружено"} className="main-loading" />;
+  return <div className="min-h-[100vh] w-full font-[900] text-[56px] pt-[200px] text-center bg-blue text-white">{<LoadingOutlined />} </div>
 };
+
+export default Loading;

@@ -1,15 +1,19 @@
 import { lazy } from "react";
 
-export const Test = lazy(() => import("./test"));
-export const NotFound = lazy(() => import("./404/404")); 
-export const Home = lazy(() => import("./home/home")); 
-export const About = lazy(() => import("./about/About")); 
-export const Services = lazy(() => import("./services/Services")); 
-export const News = lazy(() => import("./news/news")); 
-export const OneNews = lazy(() => import("./news/oneNews")); 
-export const Contacts = lazy(() => import("./contactUs/Contact")); 
-export const Personal = lazy(() => import("./personal/personal")); 
-export const Note = lazy(() => import("./personal/note")); 
-export const Profile = lazy(() => import("./personal/profile")); 
+
+export const ActiveUsers = lazy(() => import("./activeUsers/activeUsers"));
+export const Archive = lazy(() => import("./archive/archive"));
+export const CanceledRequests = lazy(() => import("./canceledRequests/canceledRequests"));
+export const Contact = lazy(() => import("./contact/contact"));
+export const ContactResponse = lazy(() => import("./contact/contactResponse"));
+export const News = lazy(() => import("./news/news"));
+export const DisActiveNews = lazy(() => import("./news/DisActiveNews"));
+export const NonActiveUsers = lazy(() => import("./nonActiveUsers/nonActiveUsers"));
+export const Orders = lazy(() => import("./orders/orders"));
+export const Requests = lazy(() => import("./requests/requests"));
+export const NotFound = lazy(() => import("./404/404"));
+export const Login = lazy(() => import("./login/login"));
+
+
 
 
