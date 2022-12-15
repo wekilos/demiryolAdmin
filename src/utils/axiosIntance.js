@@ -1,7 +1,7 @@
 import axios from "axios";
 import { token } from "./token";
 
-// const BASE_URL = 'http://95.85.122.39:8181'
+// const BASE_URL = "http://localhost:8181";
 const BASE_URL = "http://216.250.8.203:8181";
 
 const axiosInstance = axios.create({
