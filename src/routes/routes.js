@@ -103,12 +103,8 @@ const App = () => {
                             path="/requests"
                             exact
                         />
-                        <PrivateRoute
-                            restricted={true}
-                            component={Login}
-                            path="/login"
-                            exact
-                        />
+
+                        <Route component={Login} path="/login" exact />
 
                         <Route path="/" component={Login} />
                         <Route path="*" component={NotFound} />
