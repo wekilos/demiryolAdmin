@@ -1,11 +1,13 @@
 import { Popconfirm, Table, Button, message, Drawer } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { axiosInstance, BASE_URL } from "../../utils/axiosIntance";
 import file from "../../img/file.png";
 import DropFileInput from "./dropFile";
 import { useHistory } from "react-router-dom";
+import { SebedimContext } from "../../context/sebedim";
 
 const Requests = () => {
+    const { dil } = useContext(SebedimContext);
     const history = useHistory();
     const [data, setData] = useState([]);
     const [openChange, setOpenChange] = useState(false);
@@ -39,15 +41,16 @@ const Requests = () => {
 
     const columns = [
         {
-            title: "Ady ",
+            title: dil === "tm" ? "Ady" : dil === "ru" ? "Имя" : "Name",
             dataIndex: "title_tm",
         },
         {
-            title: "Tazelik",
+            title: dil === "tm" ? "Tazelik" : dil === "ru" ? "Новости" : "News",
             dataIndex: "text_tm",
         },
         {
-            title: "Surat",
+            title:
+                dil === "tm" ? "Surat" : dil === "ru" ? "Картина" : "Picture",
             dataIndex: "uploaded",
             render: (text, record) => (
                 <div>
@@ -61,10 +64,10 @@ const Requests = () => {
         },
 
         {
-            title: "Action",
+            title:
+                dil === "tm" ? "Hereket" : dil === "ru" ? "Действие" : "Action",
             render: (text, record) => (
-                <>
-                    {/* <Popconfirm placement="top" title={"Are you sure"} onConfirm={handleConfirm} okText="Yes" cancelText="No">  */}
+                <div className="flex">
                     <Button
                         onClick={() => {
                             setOpenChange(true);
@@ -73,7 +76,11 @@ const Requests = () => {
                         type="primary"
                         style={{ borderRadius: "7px" }}
                     >
-                        Maglumat
+                        {dil === "tm"
+                            ? "Maglumat"
+                            : dil === "ru"
+                            ? "Информация"
+                            : "Information"}
                     </Button>
                     {/* </Popconfirm> */}
                     <Popconfirm
@@ -87,10 +94,14 @@ const Requests = () => {
                             type="primary"
                             style={{ borderRadius: "7px", marginLeft: "10px" }}
                         >
-                            {" "}
-                            Active
+                            {dil === "tm"
+                                ? "Aktiw et"
+                                : dil === "ru"
+                                ? "Активировать"
+                                : "Activete"}
                         </Button>
                     </Popconfirm>
+
                     <Popconfirm
                         placement="top"
                         title={"Are you sure"}
@@ -102,11 +113,14 @@ const Requests = () => {
                             type="danger"
                             style={{ borderRadius: "7px", marginLeft: "10px" }}
                         >
-                            {" "}
-                            delete
+                            {dil === "tm"
+                                ? "Öçür"
+                                : dil === "ru"
+                                ? "Удалить"
+                                : "Delete"}
                         </Button>
                     </Popconfirm>
-                </>
+                </div>
             ),
         },
     ];
@@ -265,14 +279,63 @@ const Requests = () => {
                 visible={openChange}
             >
                 <div>
-                    <h2>Maglumat:</h2>
-                    <p className="mb-0">Ady tm: {order?.title_tm}</p>
-                    <p className="mb-0">Ady ru: {order?.title_ru}</p>
-                    <p>Ady en: {order?.title_en}</p>
+                    <h2>
+                        {dil === "tm"
+                            ? "Maglumat"
+                            : dil === "ru"
+                            ? "Информация"
+                            : "Information"}
+                        :
+                    </h2>
+                    <p className="mb-0">
+                        {dil === "tm"
+                            ? "Ady tm"
+                            : dil === "ru"
+                            ? "Имя тм"
+                            : "Name tm"}
+                        : {order?.title_tm}
+                    </p>
+                    <p className="mb-0">
+                        {dil === "tm"
+                            ? "Ady ru"
+                            : dil === "ru"
+                            ? "Имя ру"
+                            : "Name ru"}
+                        : {order?.title_ru}
+                    </p>
+                    <p>
+                        {dil === "ru"
+                            ? "Ady en"
+                            : dil === "ru"
+                            ? "Имя ен"
+                            : "Name en"}
+                        : {order?.title_en}
+                    </p>
 
-                    <p className="mb-0">Habar tm: {order?.text_tm}</p>
-                    <p className="mb-0">Habar ru: {order?.text_ru}</p>
-                    <p>Habar en: {order?.text_en}</p>
+                    <p className="mb-0">
+                        {dil === "tm"
+                            ? "Habar tm"
+                            : dil === "ru"
+                            ? "Новости тм"
+                            : "news tm"}
+                        : {order?.text_tm}
+                    </p>
+                    <p className="mb-0">
+                        {dil === "tm"
+                            ? "Habar ru"
+                            : dil === "ru"
+                            ? "Новости ру"
+                            : "news ru"}
+                        : {order?.text_ru}
+                    </p>
+                    <p>
+                        {dil === "tm"
+                            ? "Habar en"
+                            : dil === "ru"
+                            ? "Новости ен"
+                            : "news en"}
+                        : {order?.text_en}
+                    </p>
                     <img
                         className="object-contain h-[300px]"
                         src={BASE_URL + "/" + order?.picture}
@@ -288,14 +351,22 @@ const Requests = () => {
                             type="primary"
                             style={{ borderRadius: "7px" }}
                         >
-                            Uytget
+                            {dil === "tm"
+                                ? "Uytget"
+                                : dil === "ru"
+                                ? "Редактировать"
+                                : "Edit"}
                         </Button>
                         <Button
                             onClick={() => setSurat(true)}
                             type="primary"
                             style={{ borderRadius: "7px" }}
                         >
-                            Surat
+                            {dil === "tm"
+                                ? "Surat"
+                                : dil === "ru"
+                                ? "Картина"
+                                : "Picture"}
                         </Button>
                     </div>
                 </div>
@@ -319,7 +390,13 @@ const Requests = () => {
                         }
                         className="h-[50px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                         type="text"
-                        placeholder="title_tm"
+                        placeholder={
+                            dil === "ru"
+                                ? "Ady tm"
+                                : dil === "ru"
+                                ? "Имя тм"
+                                : "Name tm"
+                        }
                     />
                     <input
                         value={news?.title_ru}
@@ -328,7 +405,13 @@ const Requests = () => {
                         }
                         className="h-[50px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                         type="text"
-                        placeholder="title_ru"
+                        placeholder={
+                            dil === "tm"
+                                ? "Ady ru"
+                                : dil === "ru"
+                                ? "Имя ру"
+                                : "Name ru"
+                        }
                     />
                     <input
                         value={news?.title_en}
@@ -337,7 +420,13 @@ const Requests = () => {
                         }
                         className="h-[50px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                         type="text"
-                        placeholder="title_en"
+                        placeholder={
+                            dil === "tm"
+                                ? "Ady en"
+                                : dil === "ru"
+                                ? "Имя ен"
+                                : "Name en"
+                        }
                     />
                     <textarea
                         rows={5}
@@ -347,7 +436,13 @@ const Requests = () => {
                         }
                         className="h-[100px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                         type="text"
-                        placeholder="text_tm"
+                        placeholder={
+                            dil === "tm"
+                                ? "Habar tm"
+                                : dil === "ru"
+                                ? "Новости тм"
+                                : "news tm"
+                        }
                     />
                     <textarea
                         rows={5}
@@ -357,7 +452,13 @@ const Requests = () => {
                         }
                         className="h-[100px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                         type="text"
-                        placeholder="text_ru"
+                        placeholder={
+                            dil === "tm"
+                                ? "Habar ru"
+                                : dil === "ru"
+                                ? "Новости ру"
+                                : "news ru"
+                        }
                     />
                     <textarea
                         rows={5}
@@ -367,7 +468,13 @@ const Requests = () => {
                         }
                         className="h-[100px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                         type="text"
-                        placeholder="text_en"
+                        placeholder={
+                            dil === "tm"
+                                ? "Habar en"
+                                : dil === "ru"
+                                ? "Новости ен"
+                                : "news en"
+                        }
                     />
                     <button
                         onClick={() => {
@@ -377,7 +484,11 @@ const Requests = () => {
                             active && "!bg-blue !text-white "
                         } bg-[#DEE6F9] h-[50px] rounded-[5px] w-full mt-4 text-[18px] font-sans text-blue`}
                     >
-                        Send
+                        {dil === "tm"
+                            ? "Ugrat"
+                            : dil === "ru"
+                            ? "Отправлять"
+                            : "Send"}
                     </button>
                 </div>
             </Drawer>
@@ -399,7 +510,11 @@ const Requests = () => {
                         active && "!bg-blue !text-white "
                     } bg-[#DEE6F9] h-[50px] rounded-[5px] w-full mt-4 text-[18px] font-sans text-blue`}
                 >
-                    Send
+                    {dil === "tm"
+                        ? "Ugrat"
+                        : dil === "ru"
+                        ? "Отправлять"
+                        : "Send"}
                 </button>
             </Drawer>
             <Drawer
@@ -418,7 +533,13 @@ const Requests = () => {
                     }
                     className="h-[50px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                     type="text"
-                    placeholder="title_tm"
+                    placeholder={
+                        dil === "tm"
+                            ? "Ady tm"
+                            : dil === "ru"
+                            ? "Имя тм"
+                            : "Name tm"
+                    }
                 />
                 <input
                     value={tazelik?.title_ru}
@@ -427,7 +548,13 @@ const Requests = () => {
                     }
                     className="h-[50px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                     type="text"
-                    placeholder="title_ru"
+                    placeholder={
+                        dil === "tm"
+                            ? "Ady ru"
+                            : dil === "ru"
+                            ? "Имя ру"
+                            : "Name ru"
+                    }
                 />
                 <input
                     value={tazelik?.title_en}
@@ -436,7 +563,13 @@ const Requests = () => {
                     }
                     className="h-[50px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                     type="text"
-                    placeholder="title_en"
+                    placeholder={
+                        dil === "tm"
+                            ? "Ady en"
+                            : dil === "ru"
+                            ? "Имя ен"
+                            : "Name en"
+                    }
                 />
                 <textarea
                     rows={5}
@@ -446,7 +579,13 @@ const Requests = () => {
                     }
                     className="h-[100px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                     type="text"
-                    placeholder="text_tm"
+                    placeholder={
+                        dil === "tm"
+                            ? "Habar tm"
+                            : dil === "ru"
+                            ? "Новости тм"
+                            : "news tm"
+                    }
                 />
                 <textarea
                     rows={5}
@@ -456,7 +595,13 @@ const Requests = () => {
                     }
                     className="h-[100px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                     type="text"
-                    placeholder="text_ru"
+                    placeholder={
+                        dil === "tm"
+                            ? "Habar ru"
+                            : dil === "ru"
+                            ? "Новости ру"
+                            : "news ru"
+                    }
                 />
                 <textarea
                     rows={5}
@@ -466,7 +611,13 @@ const Requests = () => {
                     }
                     className="h-[100px] rounded-[6px] bg-[#FFFFFF] w-[100%] border-[1px] border-[#E3E7EE] text-[#999999] pl-[12px] text-[16px] font-sans mb-4"
                     type="text"
-                    placeholder="text_en"
+                    placeholder={
+                        dil === "tm"
+                            ? "Habar en"
+                            : dil === "ru"
+                            ? "Новости ен"
+                            : "news en"
+                    }
                 />
                 <DropFileInput onFileChange={(files) => onFileChange(files)} />
                 <button
@@ -477,12 +628,20 @@ const Requests = () => {
                         active && "!bg-blue !text-white "
                     } bg-[#DEE6F9] h-[50px] rounded-[5px] w-full mt-4 text-[18px] font-sans text-blue`}
                 >
-                    Send
+                    {dil === "tm"
+                        ? "Ugrat"
+                        : dil === "ru"
+                        ? "Отправлять"
+                        : "Send"}
                 </button>
             </Drawer>
             <div className="w-full h-[50px] p-0 flex justify-between ">
                 <h2 className="leading-[50px] ml-[50px] text-sans text-[24px]">
-                    Tazelikler
+                    {dil === "tm"
+                        ? "Tazelikler"
+                        : dil === "ru"
+                        ? "Новости"
+                        : "News"}
                 </h2>
                 <Button
                     onClick={() => {
@@ -491,7 +650,11 @@ const Requests = () => {
                     className="h-[40px] mt-[10px] mr-[50px] !rounded-[12px]"
                     type="primary"
                 >
-                    Tazelik Gosh
+                    {dil === "tm"
+                        ? "Tazelik Gosh"
+                        : dil === "ru"
+                        ? "Добавить новость"
+                        : "Add news"}
                 </Button>
             </div>
             <Table
