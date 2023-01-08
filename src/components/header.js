@@ -42,7 +42,7 @@ const Headers = () => {
                         alt="logo"
                     />
                 </div>
-                <div>Turkmen Demiryollary Express HJ</div>
+                <div>“Türkmen Demirýol Ekspress” HJ</div>
             </div>
             <div className="profile">
                 <Dropdown overlay={profile_menu}>
